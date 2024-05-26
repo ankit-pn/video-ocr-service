@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  ocr-service:
+    build: .
+    volumes:
+      - /home/kg766/mnt:/app/videos
+    extra_hosts:
+      - "host.docker.internal:172.31.46.68"
+    environment:
+      - REDIS_API_PASSWORD=random123
+      - OCR_THREADS=20  # Number of CPU threads for OCR
+      - REDIS_API_DOMAIN=redis.dbackup.cloud  # The domain of your API
+    command: ["python", "video_ocr_service.py"]
+    restart: always
